@@ -1,4 +1,4 @@
-import { type JSX } from "react";
+import { useState, type JSX } from "react";
 import {
   Card,
   CardContent,
@@ -19,6 +19,9 @@ const ReviewCard = ({
   renderStars: (n: number) => JSX.Element;
 }) => {
   const { initials } = useInitials({ author: rev.author });
+  const [expanded, setExpanded] = useState(false);
+
+  if (!rev) return null;
 
   return (
     <Card className="border-0 shadow-sm rounded-md transition-all hover:shadow-md focus-within:shadow-md">
@@ -48,11 +51,23 @@ const ReviewCard = ({
               </span>
             </div>
 
-            <p className="mt-1 text-xs text-slate-600 leading-relaxed line-clamp-3">
+            <p
+              className={`text-xs text-slate-600 leading-relaxed ${
+                expanded ? "" : "line-clamp-3 truncate"
+              }`}
+            >
               {rev.body}
             </p>
+            {rev.body.length > 100 && (
+              <button
+                onClick={() => setExpanded((prev) => !prev)}
+                className="mt-1 text-gray-600 text-xs font-medium hover:underline"
+              >
+                {expanded ? "Show less" : "Read more"}
+              </button>
+            )}
 
-            <div className="mt-1 flex items-end gap-0.5">
+            <div className="mt-1 flex items-end gap-0.5 -mb-2">
               <Button
                 variant="link"
                 className="ml-auto text-xs text-gray-500 hover:text-blue-600 px-2.5 h-5"

@@ -83,7 +83,7 @@ export default function ShowReviewPage() {
             {displayedReviews ? (
               displayedReviews.map((rev, index) => (
                 <ReviewCard
-                  key={rev.id ?? `${rev.date ?? "no-date"}-${index}`}
+                  key={index ?? `${rev.createdAt ?? "no-date"}-${index}`}
                   renderStars={renderStars}
                   rev={rev}
                 />

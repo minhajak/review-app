@@ -46,11 +46,11 @@ export function useReviews({ initialVisible = 3, initialSort = "newest" } = {}) 
     switch (sortOption) {
       case "newest":
         return arr.sort(
-          (a, b) => new Date(b.date || "").getTime() - new Date(a.date || "").getTime()
+          (a, b) => new Date(b.createdAt || "").getTime() - new Date(a.createdAt || "").getTime()
         );
       case "oldest":
         return arr.sort(
-          (a, b) => new Date(a.date || "").getTime() - new Date(b.date || "").getTime()
+          (a, b) => new Date(a.createdAt || "").getTime() - new Date(b.createdAt || "").getTime()
         );
       case "highest":
         return arr.sort((a, b) => b.rating - a.rating);
