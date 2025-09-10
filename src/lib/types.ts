@@ -9,15 +9,13 @@ export type Review = {
   title: string;
   body: string;
   rating: number;
-  likes: number;
-  dislikes: number;
-  date: Date;
+  createdAt: Date;
+  modifiedAt?: Date;
 };
 
 export type MockData = {
   average: number;
   totalRatings: number;
-  totalReviews: number;
   breakdown: RatingBreakdown[];
   reviews: Review[];
 };

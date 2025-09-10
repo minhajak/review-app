@@ -37,7 +37,7 @@ const ReviewCard = ({
                 {rev.title}
               </div>
               <div className="text-xs text-slate-400 pr-1">
-                {formatTimeAgo(rev.date)}
+                {formatTimeAgo(rev.createdAt)}
               </div>
             </div>
 
