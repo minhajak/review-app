@@ -31,7 +31,7 @@ const TotalRatingCard = ({
             <div>
               {renderStars(review.average)}
               <div className="text-sm text-slate-500 mt-1">
-                {review.totalRatings} ratings · {review.totalReviews} reviews
+                {review.totalRatings} rating & reviews
               </div>
             </div>
           </CardTitle>

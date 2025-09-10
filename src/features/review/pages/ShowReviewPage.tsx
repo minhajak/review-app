@@ -1,6 +1,14 @@
 import { useReviews } from "../hooks/useShowReview";
-import { ChevronDown, ChevronRight, MessageSquareOff } from "lucide-react";
-import { Badge, Button } from "../../../components";
+import { ChevronRight, MessageSquareOff } from "lucide-react";
+import {
+  Badge,
+  Button,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../../components";
 import TotalRatingCard from "../components/TotalRatingCard";
 import ReviewCard from "../components/ReviewCard";
 import renderStars from "../components/RenderStars";
@@ -33,7 +41,7 @@ export default function ShowReviewPage() {
         <h1 className="sm:text-[25px] font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
           Ratings & Reviews
         </h1>
-        {resData?.totalReviews && (
+        {resData?.totalRatings && (
           <Badge
             variant="secondary"
             className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full"
@@ -54,18 +62,21 @@ export default function ShowReviewPage() {
           <div className="md:col-span-2 space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-lg font-semibold">Customer Reviews</h2>
-              <div className="relative">
-                <select
-                  value={sortOption}
-                  onChange={(e) => setSortOption(e.target.value)}
-                  className="appearance-none border-none text-[12px] font-[12px] text-white rounded-md py-1 px-2 ring-0  pr-6 bg-blue-400"
-                >
-                  <option value="newest">Newest first</option>
-                  <option value="oldest">Oldest first</option>
-                  <option value="highest">Highest rated</option>
-                  <option value="lowest">Lowest rated</option>
-                </select>
-                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-white pointer-events-none" />
+              <div className="relative max-w-[120px] hover:ring-0 focus:ring-0 focus:ring-offset-0">
+                <Select value={sortOption} onValueChange={setSortOption}>
+                  <SelectTrigger
+                    size="sm"
+                    className="h-6 px-2 bg-blue-400 text-white text-[12px] rounded-lg focus:ring-0 focus:ring-offset-0 [&>svg]:stroke-white [&>svg]:text-white"
+                  >
+                    <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-blue-400 text-white border-none">
+                    <SelectItem value="newest">Newest first</SelectItem>
+                    <SelectItem value="oldest">Oldest first</SelectItem>
+                    <SelectItem value="highest">Highest rated</SelectItem>
+                    <SelectItem value="lowest">Lowest rated</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
@@ -102,7 +113,7 @@ export default function ShowReviewPage() {
       ) : (
         <div className="flex flex-col items-center justify-center py-10 text-center text-gray-500 backdrop-blur-3xl">
           <MessageSquareOff className="w-12 h-12 mb-3 text-gray-400" />
-          <p className="text-lg font-medium">No reviews yet</p>
+          <p className="text-lg font-medium">No reviews yet...</p>
           <p className="text-sm text-gray-400">
             Be the first to share your thoughts!
           </p>
