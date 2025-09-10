@@ -1,15 +1,17 @@
 import { useState, type JSX } from "react";
 import {
   Card,
-  CardContent,
+
   Avatar,
   AvatarImage,
   AvatarFallback,
   Button,
+  CardHeader,
 } from "../../../components";
 import type { Review } from "../../../lib";
 import { formatTimeAgo } from "../../../utils";
 import useInitials from "../../../hooks/useInitials";
+
 
 const ReviewCard = ({
   rev,
@@ -25,7 +27,7 @@ const ReviewCard = ({
 
   return (
     <Card className="border-0 shadow-sm rounded-md transition-all hover:shadow-md focus-within:shadow-md">
-      <CardContent className="p-2 pt-0">
+      <CardHeader className=" py-0 px-3 pt-0">
         <div className="flex items-start gap-2">
           <Avatar className="w-6 h-6 border border-gray-200">
             <AvatarImage src={""} alt={rev.author} />
@@ -51,33 +53,34 @@ const ReviewCard = ({
               </span>
             </div>
 
-            <p
-              className={`text-xs text-slate-600 leading-relaxed ${
-                expanded ? "" : "line-clamp-3 truncate"
-              }`}
-            >
-              {rev.body}
-            </p>
-            {rev.body.length > 100 && (
-              <button
-                onClick={() => setExpanded((prev) => !prev)}
-                className="mt-1 text-gray-600 text-xs font-medium hover:underline"
+              <p
+                className={`text-xs text-slate-600 leading-relaxed pt-2 ${
+                  expanded ? "" : "line-clamp-3 "
+                }`}
               >
-                {expanded ? "Show less" : "Read more"}
-              </button>
-            )}
+                {rev.body}
+              </p>
+              {rev.body.length > 100 && (
+                <button
+                  onClick={() => setExpanded((prev) => !prev)}
+                  className="mt-1 text-gray-600 text-xs font-medium hover:underline"
+                >
+                  {expanded ? "Show less" : "Read more"}
+                </button>
+              )}
 
-            <div className="mt-1 flex items-end gap-0.5 -mb-2">
-              <Button
-                variant="link"
-                className="ml-auto text-xs text-gray-500 hover:text-blue-600 px-2.5 h-5"
-              >
-                Report
-              </Button>
-            </div>
+              {/* <div className="mt-1 flex items-end gap-0.5 -mb-2">
+                <Button
+                  variant="link"
+                  className="ml-auto text-xs text-gray-500 hover:text-blue-600 px-2.5 h-5"
+                  onClick={() => alert("Reported!")}
+                >
+                  Report
+                </Button>
+              </div> */}
           </div>
         </div>
-      </CardContent>
+      </CardHeader>
     </Card>
   );
 };

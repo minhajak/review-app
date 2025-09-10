@@ -58,14 +58,14 @@ const ReviewForm = ({ navigate }: { navigate: NavigateFunction }) => {
               htmlFor="author"
               className="block text-sm font-medium text-slate-700 mb-2"
             >
-              Author Name
+              Author's Name
             </Label>
             <Input
               type="text"
               id="author"
               value={author}
               onChange={onChangeAuthor}
-              placeholder="Enter your Full name"
+              placeholder="Enter your name..."
               className="w-full px-4 py-2 ring-0 rounded-lg border-blue-200 focus:ring-2 focus:ring-blue-300"
               required
             />

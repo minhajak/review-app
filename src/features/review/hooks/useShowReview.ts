@@ -22,6 +22,7 @@ export function useReviews({ initialVisible = 3, initialSort = "newest" } = {}) 
       setError(null);
       try {
         const res = await getReviews();
+        console.log(res.data.breakdown)
         if (!res?.data) throw new Error("Invalid response");
         if (!mounted) return;
         setResData(res.data as MockData);

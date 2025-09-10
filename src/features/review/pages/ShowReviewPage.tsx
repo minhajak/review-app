@@ -25,8 +25,9 @@ export default function ShowReviewPage() {
     displayedReviews,
     hasMoreReviews,
     toggleShowAll,
-    totalCount,
   } = useReviews({ initialVisible: 3, initialSort: "newest" });
+
+
 
   if (loading) {
     return <Loading />;
@@ -55,7 +56,7 @@ export default function ShowReviewPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <TotalRatingCard
             review={resData!}
-            totalCount={totalCount}
+            totalCount={resData.totalRatings}
             renderStars={renderStars}
           />
 
