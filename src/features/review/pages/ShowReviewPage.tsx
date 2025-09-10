@@ -1,0 +1,119 @@
+import { useReviews } from "../hooks/useShowReview";
+import { ChevronDown, ChevronRight, MessageSquareOff } from "lucide-react";
+import { Badge, Button } from "../../../components";
+import TotalRatingCard from "../components/TotalRatingCard";
+import ReviewCard from "../components/ReviewCard";
+import renderStars from "../components/RenderStars";
+import { Loading } from "../../../components";
+import { Link } from "react-router-dom";
+export default function ShowReviewPage() {
+  const {
+    resData,
+    reviews,
+    loading,
+    error,
+    sortOption,
+    setSortOption,
+    displayedReviews,
+    hasMoreReviews,
+    toggleShowAll,
+    totalCount,
+  } = useReviews({ initialVisible: 3, initialSort: "newest" });
+
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <div className="text-center p-10 text-red-500">{error}</div>;
+  }
+
+  return (
+    <div className="max-w-6xl mx-auto p-6 space-y-8">
+      <div className="flex items-center justify-between">
+        <h1 className="sm:text-[25px] font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
+          Ratings & Reviews
+        </h1>
+        {resData?.totalReviews && (
+          <Badge
+            variant="secondary"
+            className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full"
+          >
+            {resData?.totalRatings} ratings
+          </Badge>
+        )}
+      </div>
+
+      {resData?.breakdown?.length ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <TotalRatingCard
+            review={resData!}
+            totalCount={totalCount}
+            renderStars={renderStars}
+          />
+
+          <div className="md:col-span-2 space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-lg font-semibold">Customer Reviews</h2>
+              <div className="relative">
+                <select
+                  value={sortOption}
+                  onChange={(e) => setSortOption(e.target.value)}
+                  className="appearance-none border-none text-[12px] font-[12px] text-white rounded-md py-1 px-2 ring-0  pr-6 bg-blue-400"
+                >
+                  <option value="newest">Newest first</option>
+                  <option value="oldest">Oldest first</option>
+                  <option value="highest">Highest rated</option>
+                  <option value="lowest">Lowest rated</option>
+                </select>
+                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-white pointer-events-none" />
+              </div>
+            </div>
+
+            {displayedReviews ? (
+              displayedReviews.map((rev, index) => (
+                <ReviewCard
+                  key={rev.id ?? `${rev.date ?? "no-date"}-${index}`}
+                  renderStars={renderStars}
+                  rev={rev}
+                />
+              ))
+            ) : (
+              <div className="flex flex-col items-center justify-center py-10 text-center text-gray-500">
+                <MessageSquareOff className="w-12 h-12 mb-3 text-gray-400" />
+                <p className="text-lg font-medium">No reviews yet</p>
+                <p className="text-sm text-gray-400">
+                  Be the first to share your thoughts!
+                </p>
+              </div>
+            )}
+
+            {(reviews?.length ?? 0) > 3 && (
+              <div className="flex justify-center mt-6">
+                <Button
+                  onClick={toggleShowAll}
+                  className="py-0 my-0 bg-blue-400 text-white text-[12px] rounded-[16px] shadow-gray-300 hover:bg-blue-500 transition-colors"
+                >
+                  {hasMoreReviews ? "View All Reviews" : "Show Less"}
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center py-10 text-center text-gray-500 backdrop-blur-3xl">
+          <MessageSquareOff className="w-12 h-12 mb-3 text-gray-400" />
+          <p className="text-lg font-medium">No reviews yet</p>
+          <p className="text-sm text-gray-400">
+            Be the first to share your thoughts!
+          </p>
+          <Link to={`/review-write`} className=" py-3 px-3 ">
+            <Button className="text-[12px] bg-gradient-to-r from-gray-400 to-slate-500 border-0 text-white rounded-xl shadow-md hover:shadow-lg transition-all duration-100 transform hover:-translate-y-1">
+              Write a product review
+              <ChevronRight size={16} className="ml-1" />
+            </Button>
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+}
