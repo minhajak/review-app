@@ -100,6 +100,7 @@ const ReviewForm = ({ navigate }: { navigate: NavigateFunction }) => {
             <Textarea
               id="body"
               rows={2}
+              maxLength={500}
               cols={2}
               value={body}
               onChange={onChangeBody}
