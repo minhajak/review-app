@@ -25,3 +25,8 @@ export type CreateReviewType = {
   title: string;
   body: string;
 };
+
+export type ValidationResult = {
+  valid: boolean;
+  reason?: string;
+};

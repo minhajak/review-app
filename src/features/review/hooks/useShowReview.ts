@@ -95,6 +95,7 @@ export function useReviews({ initialVisible = 3, initialSort = "newest" } = {}) 
     showAll,
     showLess,
     toggleShowAll,
-    totalCount
+    totalCount,
+
   } as const;
 }
