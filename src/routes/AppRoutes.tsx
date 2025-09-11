@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import { ErrorPage, ReviewPage } from "../pages";
-import WriteReview from "../pages/WriteReview";
+import { ErrorPage, ReviewPage, WriteReviewPage } from "../pages";
+
 
 
 const AppRoutes = () => {
@@ -10,7 +10,7 @@ const AppRoutes = () => {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<ReviewPage />} />
-          <Route path="/review-write" element={<WriteReview />} />
+          <Route path="/review-write" element={<WriteReviewPage />} />
           <Route path="*" element={<ErrorPage />} />
 
         </Route>
