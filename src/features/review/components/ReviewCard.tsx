@@ -1,7 +1,6 @@
 import { useState, type JSX } from "react";
 import {
   Card,
-
   Avatar,
   AvatarImage,
   AvatarFallback,
@@ -11,7 +10,6 @@ import {
 import type { Review } from "../../../lib";
 import { formatTimeAgo } from "../../../utils";
 import useInitials from "../../../hooks/useInitials";
-
 
 const ReviewCard = ({
   rev,
@@ -53,23 +51,23 @@ const ReviewCard = ({
               </span>
             </div>
 
-              <p
-                className={`text-xs text-slate-600 leading-relaxed pt-2 ${
-                  expanded ? "" : "line-clamp-3 "
-                }`}
+            <p
+              className={`text-xs text-slate-600 leading-relaxed pt-2 ${
+                expanded ? "" : "line-clamp-3 "
+              }`}
+            >
+              {rev.body}
+            </p>
+            {rev.body && rev.body.length > 100 && (
+              <button
+                onClick={() => setExpanded((prev) => !prev)}
+                className="mt-1 text-gray-600 text-xs font-medium hover:underline"
               >
-                {rev.body}
-              </p>
-              {rev.body.length > 100 && (
-                <button
-                  onClick={() => setExpanded((prev) => !prev)}
-                  className="mt-1 text-gray-600 text-xs font-medium hover:underline"
-                >
-                  {expanded ? "Show less" : "Read more"}
-                </button>
-              )}
+                {expanded ? "Show less" : "Read more"}
+              </button>
+            )}
 
-              {/* <div className="mt-1 flex items-end gap-0.5 -mb-2">
+            {/* <div className="mt-1 flex items-end gap-0.5 -mb-2">
                 <Button
                   variant="link"
                   className="ml-auto text-xs text-gray-500 hover:text-blue-600 px-2.5 h-5"
