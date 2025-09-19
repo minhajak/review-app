@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 const MainLayout = () => {
   return (
     // full viewport, column layout
-    <div className="min-h-screen flex flex-col w-full">
+    <div className="min-h-screen flex flex-col w-full bg-[#fff]">
 
 
       {/* main content grows to take remaining space */}

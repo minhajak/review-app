@@ -36,8 +36,6 @@ export function isValidAuthor(value: string): ValidationResult {
 
   return { valid: true };
 }
-
-
 /**
  * Validate title
  */
@@ -110,7 +108,7 @@ export function isMeaningfulBody(value: string): ValidationResult {
   // Encourage proper sentence structure for short reviews
   const hasWhitespace = /\s/.test(body);
   const hasPeriod = /[.\u3002]/.test(body);
-  if ((!hasWhitespace || !hasPeriod) && body.length < 40) {
+  if ((!hasWhitespace || !hasPeriod) && body.length < 20) {
     return { valid: false, reason: "Try writing a little more — include sentences and use periods." };
   }
 
@@ -122,7 +120,7 @@ export function isMeaningfulBody(value: string): ValidationResult {
       acc[w] = (acc[w] || 0) + 1;
       return acc;
     }, {});
-    const [[topWord, topCount]] = Object.entries(wordCounts).sort((a, b) => b[1] - a[1]);
+    const [[, topCount]] = Object.entries(wordCounts).sort((a, b) => b[1] - a[1]);
     if (topCount / words.length > 0.6) {
       return { valid: false, reason: "Try to add more variety to your review." };
     }

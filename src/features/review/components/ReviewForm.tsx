@@ -5,29 +5,32 @@ import {
   Button,
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
   Input,
   Textarea,
   Label,
   Loading,
 } from "../../../components";
 
-import { Send } from "lucide-react";
-import useReviewForm from "../hooks/useReviewForm";
+import useReviewForm from "../hooks/useWriteReview";
 import ShowRatingHidden from "./ShowRatingHidden";
+import ToolTipCard from "./ToolTipCard";
 
 const ReviewForm = ({ navigate }: { navigate: NavigateFunction }) => {
+  const warningsList: string[] = [
+    "Body should not be empty.",
+    "Title must be at least 5 characters.",
+    "Description should not exceed 250 characters.",
+    "Only alphanumeric characters are allowed.",
+    "Make sure to fill all required fields.",
+  ];
   const {
     body,
     onChangeBody,
     handleSubmit,
-    isFill,
     isSubmitting,
     submitted,
     onChangeTitle,
     title,
-    handleCancel,
     author,
     onChangeAuthor,
     isPending,
@@ -42,17 +45,13 @@ const ReviewForm = ({ navigate }: { navigate: NavigateFunction }) => {
 
   return (
     <>
-      <Card className=" border-0 shadow-none rounded-2xl overflow-hidden md:shadow-lg ">
-        <CardHeader className="border-b border-slate-200">
-          <CardTitle className="text-slate-800">Your Review</CardTitle>
-        </CardHeader>
-        <CardContent className="p-6">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Author Name Input */}
+      <Card className=" border-0 shadow-none rounded-none overflow-hidden ">
+        <CardContent className="p-2">
+          <form onSubmit={handleSubmit} className="space-y-6 md:px-18">
             <div>
               <Label
                 htmlFor="author"
-                className="block text-sm font-medium text-slate-700 mb-2"
+                className="block text-[12px] sm:text-[14px]  font-[700] text-[#0f1111] mb-2"
               >
                 Author's Name
               </Label>
@@ -62,8 +61,7 @@ const ReviewForm = ({ navigate }: { navigate: NavigateFunction }) => {
                 value={author}
                 onChange={onChangeAuthor}
                 placeholder="Enter your name..."
-                className="w-full px-4 py-2 ring-0 rounded-lg border-blue-200 focus:ring-2 focus:ring-blue-300"
-                required
+                className="w-full px-4 py-2 ring-0 rounded-[3px] border-[#888c8c]  text-[#0f1111]  focus:ring-0"
               />
               {errors.author && (
                 <span className="mt-1 block text-[12px] text-red-600">
@@ -75,9 +73,9 @@ const ReviewForm = ({ navigate }: { navigate: NavigateFunction }) => {
             <div>
               <Label
                 htmlFor="title"
-                className="block text-sm font-medium text-slate-700 mb-2"
+                className="block text-[12px] sm:text-[14px] font-[700] text-[#0f1111] mb-2"
               >
-                Review Title
+                Title your review
               </Label>
               <Input
                 type="text"
@@ -85,25 +83,27 @@ const ReviewForm = ({ navigate }: { navigate: NavigateFunction }) => {
                 value={title}
                 onChange={onChangeTitle}
                 placeholder="Summarize your opinion of this book"
-                className="w-full px-4 py-2 rounded-lg ring-0 border-blue-200 focus:ring-2 focus:ring-blue-300"
-                required
+                className="w-full px-4 min-h-[32px] rounded-[3px] ring-0  text-[#0f1111] border-[#888c8c]  focus:ring-0"
               />
-               {errors.title && (
+              {errors.title && (
                 <span className="mt-1 block text-[12px] text-red-600">
                   {errors.title}
                 </span>
               )}
             </div>
-           
 
             {/* Review Body */}
             <div>
-              <Label
-                htmlFor="body"
-                className="block text-sm font-medium text-slate-700 mb-2"
-              >
-                Your Review
-              </Label>
+              <div className="flex flex-row items-center align-middle justify-start">
+                <Label
+                  htmlFor="body"
+                  className="block text-[12px] sm:text-[14px] font-[700] text-[#0f1111] mb-2"
+                >
+                  Write a review{" "}
+                  <span className="font-[400] text-red-800">(required)</span>
+                  <ToolTipCard warnings={warningsList} />
+                </Label>
+              </div>
               <Textarea
                 id="body"
                 rows={2}
@@ -112,9 +112,11 @@ const ReviewForm = ({ navigate }: { navigate: NavigateFunction }) => {
                 value={body}
                 onChange={onChangeBody}
                 placeholder="Share your thoughts on this book..."
-                className="w-full max-h-[150px] px-4 py-2  rounded-lg  resize-none border-blue-200 focus:ring-2 focus:ring-blue-300"
+                className="w-full h-[107px] px-3 py-1  rounded-[3px] text-[#0f1111]  resize-y border-[1px] border-[#888c8c] focus:ring-0"
                 required
               />
+              
+
               {errors.body && (
                 <span className="mt-1 block text-[12px] text-red-600">
                   {errors.body}
@@ -123,31 +125,13 @@ const ReviewForm = ({ navigate }: { navigate: NavigateFunction }) => {
             </div>
 
             {/* Submit Button */}
-            <div className="pt-4 flex justify-end">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleCancel}
-                className="mr-3"
-              >
-                Cancel
-              </Button>
+            <div className="pt-0 flex justify-end">
               <Button
                 type="submit"
-                disabled={isSubmitting || !isFill}
-                className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 min-w-[140px]"
+                disabled={isSubmitting}
+                className="bg-[#ffd814] hover:bg-[#f4ce0e]  text-[#0f1111] rounded-[17px] transition-all duration-300 min-w-[100px] px-7.5 py-1.5 h-8 "
               >
-                {isSubmitting ? (
-                  <div className="flex items-center justify-center">
-                    <div className="w-4 h-4 border-t-2 border-r-2 border-white rounded-full animate-spin mr-2"></div>
-                    Submitting...
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center">
-                    <Send size={16} className="mr-2" />
-                    Submit
-                  </div>
-                )}
+                Submit
               </Button>
             </div>
           </form>

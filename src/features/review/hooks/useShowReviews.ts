@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import type { MockData, Review } from "../../../lib";
 import { getReviews } from "../../../lib/axios/reviewInstance";
-
 /**
  * useReviews - custom hook to encapsulate fetching, sorting and pagination
  * of reviews so the ShowReviewPage component is much slimmer.
  */
-export function useReviews({ initialVisible = 3, initialSort = "newest" } = {}) {
+export default function useShowsReviews({ initialVisible = 3, initialSort = "newest" } = {}) {
   const [resData, setResData] = useState<MockData | undefined>();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [visibleReviews, setVisibleReviews] = useState<number>(initialVisible);

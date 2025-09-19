@@ -1,8 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import { ErrorPage, ReviewPage, WriteReviewPage } from "../pages";
-
-
+import { NotFoundPage, ReviewPage, WriteReviewPage } from "../pages";
 
 const AppRoutes = () => {
   return (
@@ -11,9 +9,8 @@ const AppRoutes = () => {
         <Route element={<MainLayout />}>
           <Route path="/" element={<ReviewPage />} />
           <Route path="/review-write" element={<WriteReviewPage />} />
-          <Route path="*" element={<ErrorPage />} />
-
         </Route>
+         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,17 +1,19 @@
 import { useCallback, useMemo, useRef, useState, useTransition } from "react";
 import type { NavigateFunction } from "react-router-dom";
 import { createReview } from "../../../lib/axios/reviewInstance";
-import { validateReview } from "../../../utils/textValidator";
+import { validateReview } from "../../../utils/inputValidator";
 type FieldErrors = { author?: string; title?: string; body?: string };
 
-export default function useReviewForm({
+export default function useWriteReview({
   navigate,
 }: {
   navigate: NavigateFunction;
 }) {
-  const [author, setAuthor] = useState("");
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [author, setAuthor] = useState("jacob");
+  const [title, setTitle] = useState("it is good!");
+  const [body, setBody] = useState(
+    "i like it it is a good book now it is my favorite book"
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const isMounted = useRef(true);
@@ -28,10 +30,6 @@ export default function useReviewForm({
     };
   });
 
-  // Derived boolean — no extra state
-  const isFill = useMemo(() => {
-    return Boolean(title.trim() && body.trim() && author.trim());
-  }, [title, body, author]);
 
   // Stable callbacks
   const onChangeAuthor = useCallback(
@@ -61,7 +59,7 @@ export default function useReviewForm({
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
-      if (!isFill || isSubmitting) return;
+      if (isSubmitting) return;
 
       setIsSubmitting(true);
 
@@ -81,7 +79,6 @@ export default function useReviewForm({
         setErrors(newErrors);
         return;
       }
-      console.log("debug 2");
       try {
         const result = await createReview({ author, title, body });
         console.log("Review created:", result);
@@ -101,7 +98,7 @@ export default function useReviewForm({
         }
       }
     },
-    [author, title, body, isFill, isSubmitting, navigate]
+    [author, title, body, isSubmitting, navigate]
   );
 
   return {
@@ -111,7 +108,6 @@ export default function useReviewForm({
     onChangeBody,
     handleSubmit,
     handleCancel,
-    isFill,
     isSubmitting,
     submitted,
     setTitle,
@@ -122,6 +118,6 @@ export default function useReviewForm({
     isPending,
     rating,
     setSubmitted,
-    errors
+    errors,
   };
 }

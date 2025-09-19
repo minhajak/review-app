@@ -23,3 +23,9 @@ export {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+export {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";

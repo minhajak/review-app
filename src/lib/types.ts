@@ -30,3 +30,4 @@ export type ValidationResult = {
   valid: boolean;
   reason?: string;
 };
+export type SortOption = "newest" | "oldest" | "highest" | "lowest";

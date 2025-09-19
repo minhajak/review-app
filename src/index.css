@@ -1,10 +1,40 @@
 @import 'tailwindcss';
 @import "tw-animate-css";
 
+/* If your tooltip uses Radix classes */
+.radix-tooltip-arrow,
+.tooltip-arrow, /* fallback if your wrapper uses this name */
+[data-radix-popper-arrow] { /* other possible attribute name */
+  fill: #ffffff !important;
+  stroke: #e5e7eb !important; /* optional border */
+}
+
+/* sometimes the arrow is an <svg> inside; also target svg */
+.radix-tooltip-arrow svg,
+.tooltip-arrow svg,
+[data-radix-popper-arrow] svg {
+  fill: #ffffff !important;
+  stroke: #e5e7eb !important;
+}
+
+
 :root{
   scroll-behavior: smooth;
 }
+@font-face {
+  font-family: "MyCustomFont";
+  src: url("./assets/fonts/Ember/AmazonEmber_Rg.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
+body {
+  font-family: "MyCustomFont",Arial, sans-serif;
+}
+
+@theme{ 
+  --color-red-amazon:#ff6200
+}
 
 @custom-variant dark (&:is(.dark *));
 

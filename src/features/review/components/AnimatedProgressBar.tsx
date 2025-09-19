@@ -11,9 +11,9 @@ const AnimatedProgressBar = ({ value }: { value: number }) => {
   }, [value]);
 
   return (
-    <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
+    <div className="h-6 bg-white border-[1.5px] border-gray-400 rounded-[3px]">
       <div  
-        className={`h-full bg-gradient-to-r from-cyan-500 to-blue-600 transition-all duration-1000 ease-out`}
+        className={`h-full bg-red-amazon transition-all duration-1000 ease-out`}
         style={{ width: `${progress}%` }}
       />
     </div>
