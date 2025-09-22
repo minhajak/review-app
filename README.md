@@ -19,8 +19,7 @@
 * [Testing & Linting](#testing--linting)
 * [Deployment Suggestions](#deployment-suggestions)
 * [Project Structure](#project-structure)
-* [Contributing](#contributing)
-* [License](#license)
+
 
 ---
 
