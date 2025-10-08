@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState, useTransition } from "react";
+import { useCallback, useRef, useState, useTransition } from "react";
 import type { NavigateFunction } from "react-router-dom";
 import { createReview } from "../../../lib/axios/reviewInstance";
 import { validateReview } from "../../../utils/inputValidator";
@@ -18,7 +18,7 @@ export default function useWriteReview({
   const [submitted, setSubmitted] = useState(false);
   const isMounted = useRef(true);
   const [isPending, startTransition] = useTransition();
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState<number>(1);
   const [errors, setErrors] = useState<FieldErrors>({});
 
   // keep mounted flag to avoid state updates after unmount
@@ -82,7 +82,7 @@ export default function useWriteReview({
       try {
         const result = await createReview({ author, title, body });
         console.log("Review created:", result);
-        setRating(result.data.rating);
+        setRating(result.data.data.rating);
 
         if (!isMounted.current) return;
         await new Promise((resolve) => setTimeout(resolve, 1000));

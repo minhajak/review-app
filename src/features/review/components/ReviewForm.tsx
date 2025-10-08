@@ -42,7 +42,6 @@ const ReviewForm = ({ navigate }: { navigate: NavigateFunction }) => {
   if (isPending) {
     return <Loading />;
   }
-
   return (
     <>
       <Card className=" border-0 shadow-none rounded-none overflow-hidden ">
@@ -138,7 +137,7 @@ const ReviewForm = ({ navigate }: { navigate: NavigateFunction }) => {
         </CardContent>
       </Card>
       <ShowRatingHidden
-        rating={rating}
+        rating={rating as number}
         submitted={submitted}
         onClose={() => {
           setSubmitted(false);

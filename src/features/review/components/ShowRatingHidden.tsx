@@ -7,7 +7,7 @@ import { RenderStars } from "..";
 
 type Props = {
   submitted: boolean;
-  rating: number;
+  rating?: number;
   onClose?: () => void;
 };
 
@@ -19,7 +19,6 @@ const ShowRatingHidden: React.FC<Props> = ({ submitted, rating, onClose }) => {
       onClose();
     }
   };
-
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center px-4"
@@ -57,10 +56,10 @@ const ShowRatingHidden: React.FC<Props> = ({ submitted, rating, onClose }) => {
             className="text-xl tracking-wider"
             aria-label={`Rating: ${rating} out of 5`}
           >
-            <RenderStars n={rating} size={24} />
+            <RenderStars n={rating as number} size={24} />
           </div>
           <div className="text-[18px] font-[500] text-[#0f1111]">
-            {rating.toFixed(0)} out of 5
+            {(rating ?? 0).toFixed(0)} out of 5
           </div>
         </div>
 

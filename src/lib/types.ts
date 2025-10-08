@@ -31,3 +31,16 @@ export type ValidationResult = {
   reason?: string;
 };
 export type SortOption = "newest" | "oldest" | "highest" | "lowest";
+
+export type ApiWriteReviewResponseType = {
+  data: {
+    id: number;
+    author: string;
+    body: string;
+    createdAt: string;
+    title: string;
+    rating: number;
+  };
+  message: string;
+  status: string;
+};
